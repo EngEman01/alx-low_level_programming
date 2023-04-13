@@ -1,87 +1,93 @@
-#include "main.h"
+#include <main.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 /**
- * _puts - prints a string followed by a new newline
- * @str: str to print
- */
+ * _puts - prints a string, followed by a new line,
+ * @str: pointer to the string to print
+ * Return: void
+*/
+
 
 void _puts(char *str)
 {
-	int a = 0;
+int i = 0;
+while (str[i])
+{
+	_putchar(str[i]);
+	i++;
+}
 
-	while (str[a])
-	{
-		_putchar(str[a]);
-		a++;
-	}
 }
 
 /**
- * _atoi - converts a string to an int
- * @s: pointer to string
- * Return: converted int
+ * _atoi - convert a string to an integer.
+ * @s: char type string
+ * Return: integer converted
  */
 
 int _atoi(const char *s)
 {
 	int sign = 1;
-	unsigned long int resp = 0, first, a;
+	unsigned long int resp = 0, firstNum, i;
 
-	for (first = 0; !(s[first] >= 48 && s[first] <= 57); first++)
-		if (s[first] == '-')
+	for (firstNum = 0; !(s[firstNum] >= 48 && s[firstNum] <= 57); firstNum++)
+	{
+		if (s[firstNum] == '-')
+		{
 			sign *= -1;
+		}
+	}
 
-	for (a = first; s[a] >= 48 && s[a] <= 57; a++)
+	for (i = firstNum; s[i] >= 48 && s[i] <= 57; i++)
 	{
 		resp *= 10;
-		resp += (s[a] - 48);
+		resp += (s[i] - 48);
 	}
 
 	return (sign * resp);
 }
 
 /**
- * print_int - prints an integer
+ * print_int - prints an integer.
  * @n: int
- * Return: void
+ * Return: 0
  */
 
 void print_int(unsigned long int n)
 {
-	unsigned long int divisor = 1;
-	unsigned long int a, resp;
 
-	for (a = 0; n / divisor > 9; a++, divisor *= 10)
-		;
+unsigned  long int divisor = 1, i, resp;
 
-	for (; divisor >= 1; n %= divisor, divisor /= 10)
-	{
-		resp = n / divisor;
-		_putchar('0' + resp);
-	}
+for (i = 0; n / divisor > 9; i++, divisor *= 10)
+;
+
+for (; divisor >= 1; n %= divisor, divisor /= 10)
+{
+	resp = n / divisor;
+	_putchar('0' + resp);
+}
+
 }
 
 /**
- * main - returns the product of two positive numbers
- * @argc: number of arguments
- * @argv: arguments
+ * main - print the result of the multiplication, followed by a new line
+ * @argc: int
+ * @argv: list
  * Return: 0
  */
 
 int main(int argc, char const *argv[])
 {
-	(void)argc;
+(void)argc;
 
-	if (argc != 3 || !_atoi(argv[1]) || !_atoi(argv[2]))
-	{
-		_puts("Error\n");
-		exit(98);
-	}
+if (argc != 3)
+{
+	_puts("Error ");
+	exit(98);
+}
+print_int(_atoi(argv[1]) * _atoi(argv[2]));
+_putchar('\n');
 
-	print_int(_atoi(argv[1]) * _atoi(argv[2]));
-	_putchar('\n');
-
-	return (0);
+return (0);
 }
